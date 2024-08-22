@@ -1,0 +1,10 @@
+
+CREATE TABLE users (
+    id CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'CUSTOMER') NOT NULL,
+    img LONGBLOB
+);
+
+
