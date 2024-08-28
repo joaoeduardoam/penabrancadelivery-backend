@@ -1,17 +1,21 @@
 package com.joaoeduardo.penabrancadelivery_backend.user;
 
+import com.joaoeduardo.penabrancadelivery_backend.config.EmailService;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserAlreadyEnabledException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserVerificationException;
 import com.joaoeduardo.penabrancadelivery_backend.util.RandomString;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +26,9 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public User registerUser(User user){
+    private final EmailService emailService;
+
+    public User registerUser(User user) throws MessagingException, IOException {
 
         Optional<User> foundUser = Optional.ofNullable((User) userRepository.findByEmail(user.getEmail()));
 
@@ -40,6 +46,8 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
+        emailService.sendVerificationEmail(savedUser);
+
         return savedUser;
 
     }
@@ -48,7 +56,7 @@ public class UserService {
         Optional<User> user = Optional.ofNullable(userRepository.findByVerificationCode(verificationCode));
 
         if (user.isEmpty()){
-            throw new UserVerificationException("The provided verification code is wrong!");
+            throw new UserVerificationException("The provided verification code is invalid!");
         }
 
         User rawUser = user.get();
@@ -57,11 +65,26 @@ public class UserService {
             throw new UserAlreadyEnabledException("The user "+rawUser.getName()+"is already enabled!");
         }
 
-        rawUser.setVerificationCode(null);
+        rawUser.setVerificationCode("");
         rawUser.setEnabled(true);
+
+        userRepository.save(rawUser);
 
         return true;
 
     }
 
+    public User getUserDetails(UUID userId) {
+
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()){
+            throw new UserNotFoundException("User not found with ID: "+userId);
+        }
+
+        User rawUser = user.get();
+
+        return rawUser;
+
+    }
 }
