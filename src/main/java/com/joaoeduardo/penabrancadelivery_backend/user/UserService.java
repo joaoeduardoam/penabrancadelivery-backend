@@ -1,7 +1,9 @@
 package com.joaoeduardo.penabrancadelivery_backend.user;
 
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
+import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserAlreadyEnabledException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
+import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserVerificationException;
 import com.joaoeduardo.penabrancadelivery_backend.util.RandomString;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,24 @@ public class UserService {
 
     }
 
-    
+    public boolean verify(String verificationCode){
+        Optional<User> user = Optional.ofNullable(userRepository.findByVerificationCode(verificationCode));
+
+        if (user.isEmpty()){
+            throw new UserVerificationException("The provided verification code is wrong!");
+        }
+
+        User rawUser = user.get();
+
+        if (rawUser.isEnabled()){
+            throw new UserAlreadyEnabledException("The user "+rawUser.getName()+"is already enabled!");
+        }
+
+        rawUser.setVerificationCode(null);
+        rawUser.setEnabled(true);
+
+        return true;
+
+    }
 
 }
