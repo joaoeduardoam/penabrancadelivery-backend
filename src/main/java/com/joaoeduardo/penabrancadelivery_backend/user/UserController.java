@@ -1,5 +1,6 @@
 package com.joaoeduardo.penabrancadelivery_backend.user;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> registerUser (@RequestBody UserCreateDTO userCreateDTO){
+    public ResponseEntity<UserResponse> registerUser (@RequestBody @Valid UserCreateDTO userCreateDTO){
 
         User savedUser = userService.registerUser(new User(userCreateDTO));
 
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.ok(new UserResponse(savedUser));
 
     }
 
