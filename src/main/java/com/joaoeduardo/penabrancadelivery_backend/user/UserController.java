@@ -2,11 +2,11 @@ package com.joaoeduardo.penabrancadelivery_backend.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -22,6 +22,35 @@ public class UserController {
 
         return ResponseEntity.ok(new UserResponse(savedUser));
 
+    }
+
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUser (@PathVariable UUID userId){
+
+        User user = userService.getUserDetails(userId);
+
+        return ResponseEntity.ok(user);
+
+
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyUser (@Param("code") String code){
+
+        if (userService.verify(code)){
+            return ResponseEntity.ok("VERIFY SUCCESS");
+        }else{
+            return ResponseEntity.ok("VERIFY FAILED!");
+        }
+
+
+    }
+
+    @GetMapping("/test")
+    public String test (){
+
+        return "YOU ARE LOGGED IN!";
     }
 
 }

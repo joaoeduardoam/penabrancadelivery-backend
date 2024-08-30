@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -44,11 +45,13 @@ public class UserService {
 
     }
 
+
+
     public boolean verify(String verificationCode){
         Optional<User> user = Optional.ofNullable(userRepository.findByVerificationCode(verificationCode));
 
         if (user.isEmpty()){
-            throw new UserVerificationException("The provided verification code is wrong!");
+            throw new UserVerificationException("The provided verification code is invalid!");
         }
 
         User rawUser = user.get();
@@ -57,10 +60,26 @@ public class UserService {
             throw new UserAlreadyEnabledException("The user "+rawUser.getName()+"is already enabled!");
         }
 
-        rawUser.setVerificationCode(null);
+        rawUser.setVerificationCode("");
         rawUser.setEnabled(true);
 
+        userRepository.save(rawUser);
+
         return true;
+
+    }
+
+    public User getUserDetails(UUID userId) {
+
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()){
+            throw new UserNotFoundException("User not found with ID: "+userId);
+        }
+
+        User rawUser = user.get();
+
+        return rawUser;
 
     }
 

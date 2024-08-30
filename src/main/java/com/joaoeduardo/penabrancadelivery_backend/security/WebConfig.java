@@ -1,4 +1,4 @@
-package com.joaoeduardo.penabrancadelivery_backend.config;
+package com.joaoeduardo.penabrancadelivery_backend.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

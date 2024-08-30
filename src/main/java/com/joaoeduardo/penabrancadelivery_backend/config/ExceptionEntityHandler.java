@@ -24,6 +24,8 @@ public class ExceptionEntityHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+
+
     @ExceptionHandler(EmailAlreadyRegisteredException.class)
     public ResponseEntity<StandardError> handleEmailAlreadyRegisteredException(EmailAlreadyRegisteredException exception, HttpServletRequest request){
         HttpStatus status = HttpStatus.NOT_FOUND;

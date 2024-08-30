@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 @SpringBootApplication
 @RequiredArgsConstructor
-@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
+//@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 public class PenabrancadeliveryBackendApplication implements CommandLineRunner {
 
 	private final UserRepository userRepository;
