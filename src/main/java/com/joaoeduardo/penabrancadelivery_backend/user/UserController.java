@@ -1,11 +1,13 @@
 package com.joaoeduardo.penabrancadelivery_backend.user;
 
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -16,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponse> registerUser (@RequestBody @Valid UserCreateDTO userCreateDTO){
+    public ResponseEntity<UserResponse> registerUser (@RequestBody @Valid UserCreateDTO userCreateDTO) throws MessagingException, IOException {
 
         User savedUser = userService.registerUser(new User(userCreateDTO));
 

@@ -1,16 +1,19 @@
 package com.joaoeduardo.penabrancadelivery_backend.user;
 
+import com.joaoeduardo.penabrancadelivery_backend.config.EmailService;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserAlreadyEnabledException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserVerificationException;
 import com.joaoeduardo.penabrancadelivery_backend.util.RandomString;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,7 +26,9 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public User registerUser(User user){
+    private final EmailService emailService;
+
+    public User registerUser(User user) throws MessagingException, IOException {
 
         Optional<User> foundUser = Optional.ofNullable((User) userRepository.findByEmail(user.getEmail()));
 
@@ -38,6 +43,8 @@ public class UserService {
 
         String randomCode = RandomString.generateRandomString(64);
         user.setVerificationCode(randomCode);
+
+        emailService.sendVerificationEmail(user);
 
         User savedUser = userRepository.save(user);
 
