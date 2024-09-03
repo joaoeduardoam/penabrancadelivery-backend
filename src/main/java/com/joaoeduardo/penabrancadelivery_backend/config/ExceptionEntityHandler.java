@@ -1,5 +1,6 @@
 package com.joaoeduardo.penabrancadelivery_backend.config;
 
+import br.com.efi.efisdk.exceptions.EfiPayException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -63,6 +64,16 @@ public class ExceptionEntityHandler {
 
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError error = new StandardError(Instant.now(), status.value(), "Provided date is invalid!",
+                exception.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(EfiPayException.class)
+    public ResponseEntity<StandardError> handleEfiPayException(EfiPayException exception,
+                                                                      HttpServletRequest request){
+
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError error = new StandardError(Instant.now(), status.value(), exception.getError(),
                 exception.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(error);
     }
