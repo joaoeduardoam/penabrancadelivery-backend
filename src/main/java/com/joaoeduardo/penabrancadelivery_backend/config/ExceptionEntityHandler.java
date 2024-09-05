@@ -1,6 +1,7 @@
 package com.joaoeduardo.penabrancadelivery_backend.config;
 
 import br.com.efi.efisdk.exceptions.EfiPayException;
+import com.joaoeduardo.penabrancadelivery_backend.product.exception.ProductNotFoundException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +26,14 @@ public class ExceptionEntityHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<StandardError> handleProductNotFoundException(ProductNotFoundException exception, HttpServletRequest request){
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError error = new StandardError(Instant.now(), status.value(), "Product not found!",
+                exception.getMessage(), request.getRequestURI());
 
+        return ResponseEntity.status(status).body(error);
+    }
 
     @ExceptionHandler(EmailAlreadyRegisteredException.class)
     public ResponseEntity<StandardError> handleEmailAlreadyRegisteredException(EmailAlreadyRegisteredException exception, HttpServletRequest request){
