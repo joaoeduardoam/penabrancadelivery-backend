@@ -26,7 +26,6 @@ public class AuthController {
 
         try{
             var authenticationToken = new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.password());
-            System.out.println("AAAAAAAAAAAAAAAAAAAAA"+authenticationToken);
             var authentication = manager.authenticate(authenticationToken);
 
             var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());

@@ -6,8 +6,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     verification_code VARCHAR(255) NOT NULL,
     enabled BOOLEAN NOT NULL,
-    role ENUM('ADMIN', 'CUSTOMER') NOT NULL,
+    role VARCHAR(255) NOT NULL,
     img LONGBLOB
 );
-
 

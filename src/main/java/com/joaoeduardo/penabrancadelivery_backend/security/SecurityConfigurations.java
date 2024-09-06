@@ -29,8 +29,9 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/users").permitAll();
-//                    req.requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.GET, "/users/verify**").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.PUT, "/products").hasRole("ADMIN");
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.anyRequest().authenticated();
                 })
