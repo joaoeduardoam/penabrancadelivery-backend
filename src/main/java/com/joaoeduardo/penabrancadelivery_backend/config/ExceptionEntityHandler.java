@@ -2,6 +2,7 @@ package com.joaoeduardo.penabrancadelivery_backend.config;
 
 import br.com.efi.efisdk.exceptions.EfiPayException;
 import com.joaoeduardo.penabrancadelivery_backend.product.exception.ProductNotFoundException;
+import com.joaoeduardo.penabrancadelivery_backend.security.exception.AuthenticationException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,6 +40,16 @@ public class ExceptionEntityHandler {
     public ResponseEntity<StandardError> handleEmailAlreadyRegisteredException(EmailAlreadyRegisteredException exception, HttpServletRequest request){
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError error = new StandardError(Instant.now(), status.value(), "The provided email is already registered!!",
+                exception.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<StandardError> handleAuthenticationException(AuthenticationException exception, HttpServletRequest request){
+
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        StandardError error = new StandardError(Instant.now(), status.value(), exception.getMessage() ,
                 exception.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(status).body(error);

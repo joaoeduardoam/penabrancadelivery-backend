@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
+    private final String LOGIN_SUCCESSFULLY_MESSAGE = "Login success!!";
+
     private final AuthenticationManager manager;
 
     private final TokenService tokenService;
@@ -29,7 +31,7 @@ public class AuthController {
             var authentication = manager.authenticate(authenticationToken);
 
             var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
-            return ResponseEntity.ok(new TokenJWTDTO(tokenJWT));
+            return ResponseEntity.ok(new AuthResponse(tokenJWT, LOGIN_SUCCESSFULLY_MESSAGE));
 
 
         } catch (Exception e) {

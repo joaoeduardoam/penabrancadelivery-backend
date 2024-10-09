@@ -28,11 +28,21 @@ public class UserController {
 
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUser (@PathVariable UUID userId){
+    public ResponseEntity<UserResponse> getUser (@PathVariable UUID userId){
 
-        User user = userService.getUserDetails(userId);
+        UserResponse userResponse = userService.getUserDetails(userId);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userResponse);
+
+
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserResponse> getUserByToken (@RequestHeader("Authorization") String token){
+
+        UserResponse userResponse = userService.getUserByToken(token.substring(7));
+
+        return ResponseEntity.ok(userResponse);
 
 
     }

@@ -1,5 +1,5 @@
 package com.joaoeduardo.penabrancadelivery_backend.security;
 
-public record TokenJWTDTO (String token){
+public record AuthResponse(String token, String LOGIN_SUCCESSFULLY_MESSAGE){
 
 }

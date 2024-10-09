@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    UserDetails findByEmail(String email);
+    User findByEmail(String email);
 
     User findByVerificationCode(String verificationCode);
 

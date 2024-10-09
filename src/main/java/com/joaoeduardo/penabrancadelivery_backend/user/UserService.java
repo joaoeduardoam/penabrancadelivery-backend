@@ -1,6 +1,8 @@
 package com.joaoeduardo.penabrancadelivery_backend.user;
 
 import com.joaoeduardo.penabrancadelivery_backend.config.EmailService;
+import com.joaoeduardo.penabrancadelivery_backend.security.TokenService;
+import com.joaoeduardo.penabrancadelivery_backend.security.exception.AuthenticationException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserAlreadyEnabledException;
 import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
@@ -28,6 +30,8 @@ public class UserService {
 
     private final EmailService emailService;
 
+    private final TokenService tokenService;
+
     public User registerUser(User user) throws MessagingException, IOException {
 
         Optional<User> foundUser = Optional.ofNullable((User) userRepository.findByEmail(user.getEmail()));
@@ -49,6 +53,25 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         return savedUser;
+
+    }
+
+    public UserResponse getUserByToken(String token) {
+
+        Optional<String> userEmail = Optional.ofNullable(tokenService.getSubject(token));
+
+        if (userEmail.isEmpty()){
+            throw new UserNotFoundException("User not found with token: "+token);
+        }
+
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(userEmail.get()));
+
+        if (user.isEmpty()){
+            throw new UserNotFoundException("User not found with email: "+userEmail.get());
+        }
+
+        return new UserResponse(user.get());
+
 
     }
 
@@ -76,7 +99,7 @@ public class UserService {
 
     }
 
-    public User getUserDetails(UUID userId) {
+    public UserResponse getUserDetails(UUID userId) {
 
         Optional<User> user = userRepository.findById(userId);
 
@@ -86,8 +109,9 @@ public class UserService {
 
         User rawUser = user.get();
 
-        return rawUser;
+        return new UserResponse(rawUser);
 
     }
+
 
 }
