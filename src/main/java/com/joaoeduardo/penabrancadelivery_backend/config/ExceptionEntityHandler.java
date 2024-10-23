@@ -1,10 +1,10 @@
 package com.joaoeduardo.penabrancadelivery_backend.config;
 
 import br.com.efi.efisdk.exceptions.EfiPayException;
-import com.joaoeduardo.penabrancadelivery_backend.product.exception.ProductNotFoundException;
+import com.joaoeduardo.penabrancadelivery_backend.domain.product.exception.ProductNotFoundException;
 import com.joaoeduardo.penabrancadelivery_backend.security.exception.AuthenticationException;
-import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
-import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.exception.EmailAlreadyRegisteredException;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

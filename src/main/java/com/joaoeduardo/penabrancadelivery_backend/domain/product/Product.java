@@ -1,4 +1,4 @@
-package com.joaoeduardo.penabrancadelivery_backend.product;
+package com.joaoeduardo.penabrancadelivery_backend.domain.product;
 
 import jakarta.persistence.*;
 import lombok.Data;

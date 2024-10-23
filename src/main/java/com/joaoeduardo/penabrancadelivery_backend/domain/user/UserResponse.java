@@ -1,4 +1,4 @@
-package com.joaoeduardo.penabrancadelivery_backend.user;
+package com.joaoeduardo.penabrancadelivery_backend.domain.user;
 
 import java.util.UUID;
 

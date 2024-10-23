@@ -1,4 +1,4 @@
-package com.joaoeduardo.penabrancadelivery_backend.product.exception;
+package com.joaoeduardo.penabrancadelivery_backend.domain.product.exception;
 
 public class ProductNotFoundException extends RuntimeException{
 

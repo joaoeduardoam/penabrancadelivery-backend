@@ -1,17 +1,14 @@
-package com.joaoeduardo.penabrancadelivery_backend.user;
+package com.joaoeduardo.penabrancadelivery_backend.domain.user;
 
 import com.joaoeduardo.penabrancadelivery_backend.config.EmailService;
 import com.joaoeduardo.penabrancadelivery_backend.security.TokenService;
-import com.joaoeduardo.penabrancadelivery_backend.security.exception.AuthenticationException;
-import com.joaoeduardo.penabrancadelivery_backend.user.exception.EmailAlreadyRegisteredException;
-import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserAlreadyEnabledException;
-import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserNotFoundException;
-import com.joaoeduardo.penabrancadelivery_backend.user.exception.UserVerificationException;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.exception.EmailAlreadyRegisteredException;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.exception.UserAlreadyEnabledException;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.exception.UserNotFoundException;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.exception.UserVerificationException;
 import com.joaoeduardo.penabrancadelivery_backend.util.RandomString;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

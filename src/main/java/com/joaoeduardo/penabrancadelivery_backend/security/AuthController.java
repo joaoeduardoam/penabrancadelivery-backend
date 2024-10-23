@@ -1,7 +1,7 @@
 package com.joaoeduardo.penabrancadelivery_backend.security;
 
 
-import com.joaoeduardo.penabrancadelivery_backend.user.User;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

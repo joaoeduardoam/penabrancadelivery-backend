@@ -1,4 +1,4 @@
-package com.joaoeduardo.penabrancadelivery_backend.product;
+package com.joaoeduardo.penabrancadelivery_backend.domain.product;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

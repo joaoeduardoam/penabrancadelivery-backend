@@ -1,7 +1,7 @@
 package com.joaoeduardo.penabrancadelivery_backend.security;
 
 
-import com.joaoeduardo.penabrancadelivery_backend.user.UserRepository;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

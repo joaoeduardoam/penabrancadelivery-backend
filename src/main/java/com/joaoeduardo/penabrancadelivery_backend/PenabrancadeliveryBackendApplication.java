@@ -1,16 +1,10 @@
 package com.joaoeduardo.penabrancadelivery_backend;
 
-import com.joaoeduardo.penabrancadelivery_backend.user.User;
-import com.joaoeduardo.penabrancadelivery_backend.user.UserCreateDTO;
-import com.joaoeduardo.penabrancadelivery_backend.user.UserRepository;
-import com.joaoeduardo.penabrancadelivery_backend.user.UserRole;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication
 @RequiredArgsConstructor

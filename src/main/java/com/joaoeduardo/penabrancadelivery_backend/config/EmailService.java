@@ -1,19 +1,16 @@
 package com.joaoeduardo.penabrancadelivery_backend.config;
 
 
-import com.joaoeduardo.penabrancadelivery_backend.user.User;
+import com.joaoeduardo.penabrancadelivery_backend.domain.user.User;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @Service
 @RequiredArgsConstructor

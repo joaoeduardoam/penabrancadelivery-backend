@@ -1,6 +1,4 @@
-package com.joaoeduardo.penabrancadelivery_backend.product;
-
-import com.joaoeduardo.penabrancadelivery_backend.user.User;
+package com.joaoeduardo.penabrancadelivery_backend.domain.product;
 
 import java.math.BigDecimal;
 import java.util.UUID;
