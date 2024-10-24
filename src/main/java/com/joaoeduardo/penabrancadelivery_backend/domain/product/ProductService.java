@@ -60,6 +60,13 @@ public class ProductService {
 
     }
 
+    public List<ProductResponse> findAllByIdIn(List<UUID> idList) {
+
+        return productRepository.findAllByIdIn(idList).stream().map(ProductResponse::new).toList();
+
+    }
+
+
     public void deleteProductById(UUID productId) {
 
         Optional<Product> product = productRepository.findById(productId);

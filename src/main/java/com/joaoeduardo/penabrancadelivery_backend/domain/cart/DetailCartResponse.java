@@ -13,6 +13,6 @@ import java.util.List;
 @Data
 public class DetailCartResponse {
 
-    List<ProductCart> products;
+    List<ProductCart> productsCart;
 
 }

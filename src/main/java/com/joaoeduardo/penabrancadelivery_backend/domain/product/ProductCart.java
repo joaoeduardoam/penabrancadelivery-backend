@@ -9,15 +9,13 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Entity
-@Table(name = "cart_products")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductCart {
 
     @NotNull
-    private UUID productId;
+    private UUID id;
 
     @NotNull
     private String title;
@@ -28,11 +26,11 @@ public class ProductCart {
     @NotNull
     private String image;
 
-    public ProductCart (Product product){
-        this.productId = product.getId();
-        this.title = product.getTitle();
-        this.price = product.getPrice();
-        this.image = product.getImage();
+    public ProductCart (ProductResponse product){
+        this.id = product.id();
+        this.title = product.title();
+        this.price = product.price();
+        this.image = product.image();
     }
 
 
