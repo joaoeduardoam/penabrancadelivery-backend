@@ -5,9 +5,11 @@ import com.joaoeduardo.penabrancadelivery_backend.domain.product.Product;
 import com.joaoeduardo.penabrancadelivery_backend.domain.product.ProductCart;
 import com.joaoeduardo.penabrancadelivery_backend.domain.product.ProductResponse;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @NoArgsConstructor
 public class CartReader {
 

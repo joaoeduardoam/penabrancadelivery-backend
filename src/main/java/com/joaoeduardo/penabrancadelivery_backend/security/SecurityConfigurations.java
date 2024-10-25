@@ -32,6 +32,7 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.GET, "/users/verify**").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.PUT, "/products").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.POST, "/orders/get-cart-details").permitAll();
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.anyRequest().authenticated();
                 })

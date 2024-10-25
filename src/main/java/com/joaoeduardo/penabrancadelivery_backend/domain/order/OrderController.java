@@ -20,8 +20,12 @@ public class OrderController {
     private final ProductService productService;
     private final OrderService orderService;
 
-    @GetMapping
+//    @GetMapping("/get-cart-details")
+//    public ResponseEntity<DetailCartResponse> getCartDetails (@RequestBody @Valid List<UUID> productIds){
+    @PostMapping("/get-cart-details")
     public ResponseEntity<DetailCartResponse> getCartDetails (@RequestBody @Valid List<UUID> productIds){
+
+        System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
 
         List<DetailCartItemRequest> cartItemRequests = productIds.stream()
                 .map(uuid -> new DetailCartItemRequest(uuid, 1))
