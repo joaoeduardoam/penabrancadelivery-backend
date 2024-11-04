@@ -1,0 +1,34 @@
+# Use root/example as user/password credentials
+version: '3.7'
+
+services:
+
+  db:
+    image: mysql
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    container_name: mysql-container    #container name
+    #command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/data:/var/lib/mysql
+
+
+  penabrancadelivery-backend:
+    image: joaoeduardoam/penabrancadelivery-backend:1.0
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/penabranca?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      MAIL_USER: jeduardo.meneses.teste@gmail.com
+      MAIL_PASSWORD: "wcch ykvu tmnj lnbw"
+      CLIENT_ID: Client_Id_8b49bdb9f64a1431ba405309a5c30031580322cb
+      CLIENT_SECRET: 9b96b12ec2c19d96d492da4fb2e8387f6945a1f6
+    depends_on:
+      - db
+
+
